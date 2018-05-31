@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
     res.end();
 });
 
-app.use('/test', TestRouter);
+app.use('/api/test', TestRouter);
 
 server.listen(port, IP, () => {
     console.log('listening on *: ' + port);
