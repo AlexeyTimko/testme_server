@@ -14,16 +14,16 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     let newTest = new TestModel();
     newTest.setData(req.body);
-    newTest.save();
-    console.log('Finished');
-    if(newTest.errors.length > 0){
-        res.statusCode = 500;
-        res.json(newTest.errors);
-    }else{
-        testList.push(newTest.getData());
-        res.statusCode = 201;
-        res.json(newTest.getData());
-    }
+    newTest.save(() => {
+        if(newTest.errors.length > 0){
+            res.statusCode = 500;
+            res.json(newTest.errors);
+        }else{
+            testList.push(newTest.getData());
+            res.statusCode = 201;
+            res.json(newTest.getData());
+        }
+    });
 });
 
 router.get('/:id', (req, res) => {});

@@ -25,7 +25,7 @@ export default function() {
     this.validate = () => {
         return true;
     };
-    this.save = () => {
+    this.save = (callback) => {
         console.log('Saving');
         if(!this.validate()){
             this.errors.push('Invalid data');
@@ -40,18 +40,17 @@ export default function() {
             this.data.timeLimit
         ];
         db.query(sql, data, (err, res) => {
-            console.log(err, res);
             if (err) {
                 return this.errors.push('Could not save test');
             }
             const id = res.rows[0].id;
             const sql = 'SELECT * FROM test WHERE id = $1';
             db.query(sql, [ id ], (err, res) => {
-                console.log(err, res);
                 if (err) {
-                    return this.errors.push('Could not retrieve photo after create');
+                    return this.errors.push('Could not retrieve test after create');
                 }
                 this.data.id = id;
+                callback();
             });
         })
     };
