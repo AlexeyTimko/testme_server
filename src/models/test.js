@@ -1,4 +1,4 @@
-import db from './db';
+// import db from './db';
 
 export default function() {
     this.fields = {
@@ -27,32 +27,32 @@ export default function() {
     };
     this.save = () => {
         console.log('Saving');
-        if(!this.validate()){
-            this.errors.push('Invalid data');
-            return;
-        }
-        const sql = 'INSERT INTO testmedb.test (name, description, isPrivate, isLimited, timeLimit) VALUES ($1,$2,$3,$4,$5) RETURNING id';
-        const data = [
-            this.data.name,
-            this.data.description,
-            this.data.isPrivate,
-            this.data.isLimited,
-            this.data.timeLimit
-        ];
-        db.query(sql, data, (err, res) => {
-            console.log(err, res);
-            if (err) {
-                return this.errors.push('Could not save test');
-            }
-            const id = res.rows[0].id;
-            const sql = 'SELECT * FROM test WHERE id = $1';
-            db.query(sql, [ id ], (err, res) => {
-                console.log(err, res);
-                if (err) {
-                    return this.errors.push('Could not retrieve photo after create');
-                }
-                this.data.id = id;
-            });
-        })
+        // if(!this.validate()){
+        //     this.errors.push('Invalid data');
+        //     return;
+        // }
+        // const sql = 'INSERT INTO testmedb.test (name, description, isPrivate, isLimited, timeLimit) VALUES ($1,$2,$3,$4,$5) RETURNING id';
+        // const data = [
+        //     this.data.name,
+        //     this.data.description,
+        //     this.data.isPrivate,
+        //     this.data.isLimited,
+        //     this.data.timeLimit
+        // ];
+        // db.query(sql, data, (err, res) => {
+        //     console.log(err, res);
+        //     if (err) {
+        //         return this.errors.push('Could not save test');
+        //     }
+        //     const id = res.rows[0].id;
+        //     const sql = 'SELECT * FROM test WHERE id = $1';
+        //     db.query(sql, [ id ], (err, res) => {
+        //         console.log(err, res);
+        //         if (err) {
+        //             return this.errors.push('Could not retrieve photo after create');
+        //         }
+        //         this.data.id = id;
+        //     });
+        // })
     };
 };
