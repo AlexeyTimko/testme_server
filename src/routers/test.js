@@ -1,9 +1,6 @@
 import express from 'express';
 import TestModel from '../models/test';
 
-let testList = [];
-
-
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -22,7 +19,6 @@ router.post('/', (req, res) => {
             res.statusCode = 500;
             res.json(newTest.errors);
         }else{
-            testList.push(newTest.getData());
             res.statusCode = 201;
             res.json(newTest.getData());
         }
