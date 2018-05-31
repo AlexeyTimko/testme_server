@@ -14,6 +14,7 @@ app.use((req, res, next) => {
 });
 
 const server = http.Server(app);
+const IP = '165.227.135.155';
 const port = 8000;
 
 app.get('/', (req, res) => {
@@ -22,6 +23,6 @@ app.get('/', (req, res) => {
 
 app.use('/test', TestRouter);
 
-server.listen(port, () => {
+server.listen(port, IP, () => {
     console.log('listening on *: ' + port);
 });
