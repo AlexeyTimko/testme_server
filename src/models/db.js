@@ -1,10 +1,9 @@
 import {Client} from 'pg';
 
 const client = new Client({
-    user: 'postgres',
+    user: 'testme',
     host: 'localhost',
-    database: 'testmedb',
-    schema: 'testmedb',
+    database: 'testme',
     password: 'Jcjpyfybt34',
     port: 5432,
 });
