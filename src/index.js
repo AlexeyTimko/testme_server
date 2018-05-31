@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 });
 
 const server = http.Server(app);
-const IP = '165.227.135.155';
+const IP = '127.0.0.1';
 const port = 8000;
 
 app.get('/', (req, res) => {
