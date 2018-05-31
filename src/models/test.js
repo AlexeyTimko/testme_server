@@ -25,8 +25,16 @@ export default function() {
     this.validate = () => {
         return true;
     };
+    this.getList = (params, callback) => {
+        const sql = 'SELECT * FROM test ORDER BY id DESC';
+        db.query(sql, (err, res) => {
+            if (err) {
+                return this.errors.push('Could not retrieve test after create');
+            }
+            callback(res);
+        });
+    };
     this.save = (callback) => {
-        console.log('Saving');
         if(!this.validate()){
             this.errors.push('Invalid data');
             return;

@@ -7,8 +7,12 @@ let testList = [];
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.statusCode = 200;
-    res.json(testList);
+    let test = new TestModel();
+    test.getList({}, rows => {
+        console.log(rows);
+        res.statusCode = 200;
+        res.json(testList);
+    });
 });
 
 router.post('/', (req, res) => {
