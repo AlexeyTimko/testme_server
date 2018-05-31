@@ -31,7 +31,7 @@ export default function() {
             if (err) {
                 return this.errors.push('Could not retrieve test after create');
             }
-            callback(res);
+            callback(res.rows);
         });
     };
     this.save = (callback) => {

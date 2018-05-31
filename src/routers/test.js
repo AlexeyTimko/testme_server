@@ -9,9 +9,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
     let test = new TestModel();
     test.getList({}, rows => {
-        console.log(rows);
         res.statusCode = 200;
-        res.json(testList);
+        res.json(rows);
     });
 });
 
