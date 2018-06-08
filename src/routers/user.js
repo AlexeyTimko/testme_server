@@ -1,4 +1,5 @@
 import express from 'express';
+import * as user from "./user/index";
 
 const router = express.Router();
 
@@ -8,8 +9,18 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    res.statusCode = 201;
-    res.json(req.body);
+    user.Registration(req.body, id => {
+        res.statusCode = 201;
+        res.json({
+            result: 'success',
+            id
+        });
+    }, err => {
+        res.statusCode = 500;
+        return res.json({
+            error: err
+        });
+    });
 });
 
 router.post('/auth/', (req, res) => {
