@@ -25,11 +25,11 @@ export default (data, success, error) => {
         error('Invalid data');
     }else{
         const sql = 'INSERT INTO user (email, password) VALUES ($1,$2) RETURNING id';
-        const data = [
+        const params = [
             data.email,
             sha256(data.password)
         ];
-        db.query(sql, data, (err, res) => {
+        db.query(sql, params, (err, res) => {
             if (err) {
                 return error('Registration failed');
             }
