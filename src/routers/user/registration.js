@@ -24,7 +24,7 @@ export default (data, success, error) => {
     if(!validate(data)){
         error('Invalid data');
     }else{
-        const sql = 'INSERT INTO user (email, password) VALUES ($1,$2) RETURNING id';
+        const sql = 'INSERT INTO `user` (`email`, `password`) VALUES ($1,$2) RETURNING id';
         const params = [
             data.email,
             sha256(data.password)
