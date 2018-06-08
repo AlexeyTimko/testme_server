@@ -24,7 +24,7 @@ export default (data, success, error) => {
     if(!validate(data)){
         error('Invalid data');
     }else{
-        const sql = 'INSERT INTO `user` (`email`, `password`) VALUES ($1,$2) RETURNING id';
+        const sql = "INSERT INTO 'user' ('email', 'password') VALUES ($1,$2) RETURNING id";
         const params = [
             data.email,
             sha256(data.password)
@@ -35,7 +35,7 @@ export default (data, success, error) => {
                 return error('Registration failed');
             }
             const id = res.rows[0].id;
-            const sql = 'SELECT * FROM user WHERE id = $1';
+            const sql = "SELECT * FROM 'user' WHERE id = $1";
             db.query(sql, [ id ], (err, res) => {
                 if (err) {
                     console.log(err);
