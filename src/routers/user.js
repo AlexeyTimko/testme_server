@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
             id
         });
     }, err => {
-        res.statusCode = 500;
+        res.statusCode = 200;
         return res.json({
             error: err
         });

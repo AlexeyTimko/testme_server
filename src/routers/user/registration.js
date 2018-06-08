@@ -31,12 +31,14 @@ export default (data, success, error) => {
         ];
         db.query(sql, params, (err, res) => {
             if (err) {
+                console.log(err);
                 return error('Registration failed');
             }
             const id = res.rows[0].id;
             const sql = 'SELECT * FROM user WHERE id = $1';
             db.query(sql, [ id ], (err, res) => {
                 if (err) {
+                    console.log(err);
                     return error('Registration failed');
                 }
                 success(id);
