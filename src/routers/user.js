@@ -1,5 +1,7 @@
 import express from 'express';
 import * as user from "./user/index";
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 const router = express.Router();
 
@@ -18,14 +20,32 @@ router.post('/', (req, res) => {
     }, err => {
         res.statusCode = 200;
         return res.json({
+            result: 'error',
             error: err
         });
     });
 });
 
 router.post('/auth/', (req, res) => {
-    res.statusCode = 201;
-    res.json(req.body);
+    user.Auth(req.body, user => {
+        const token = jwt.sign({ user }, config.secret, {
+            expiresIn: 86400 // expires in 24 hours
+        });
+        res.statusCode = 200;
+        res.json({
+            result: 'success',
+            user: {
+                email: user.email,
+                token
+            }
+        });
+    }, err => {
+        res.statusCode = 200;
+        return res.json({
+            result: 'error',
+            error: err
+        });
+    });
 });
 
 router.get('/:id', (req, res) => {});

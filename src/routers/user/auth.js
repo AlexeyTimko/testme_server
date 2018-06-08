@@ -4,7 +4,6 @@ import sha256 from 'sha256';
 const fields = {
     email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     password: /^.{8,}$/,
-    passwordConfirm: /^.{8,}$/,
 };
 const validate = data => {
     let valid = true;
@@ -17,30 +16,27 @@ const validate = data => {
             break;
         }
     }
-    return valid && data['passwordConfirm'] === data['password'];
+    return valid;
 };
 
 export default (data, success, error) => {
     if(!validate(data)){
         error('Invalid data');
     }else{
-        const sql = 'INSERT INTO "user" (email, "password") VALUES ($1,$2) RETURNING id';
+        const sql = 'SELECT * FROM "user" WHERE email = $1 AND active = $2';
         const params = [
             data.email,
-            sha256(data.password)
+            true
         ];
         db.query(sql, params, (err, res) => {
             if (err) {
-                return error('Registration failed');
+                return error('Log in failed');
             }
-            const id = res.rows[0].id;
-            const sql = 'SELECT * FROM "user" WHERE id = $1';
-            db.query(sql, [ id ], (err, res) => {
-                if (err) {
-                    return error('Registration failed');
-                }
-                success(id);
-            });
+            const user = res.rows[0];
+            if(user.password !== sha256(data.password)){
+                return error('Log in failed');
+            }
+            success(user);
         });
     }
 }
