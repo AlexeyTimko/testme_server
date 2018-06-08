@@ -44,14 +44,13 @@ const authEmail = (data, success, error) => {
 };
 
 const authToken = (token, success, error) => {
-    jwt.verify(token, config.secret, (err, user) => {
+    jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
             return error('Invalid token');
         }
-        console.log(user);
         const sql = 'SELECT * FROM "user" WHERE email = $1 AND active = $2';
         const params = [
-            user.email,
+            decoded.user.email,
             true
         ];
         db.query(sql, params, (err, res) => {
