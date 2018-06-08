@@ -48,6 +48,7 @@ const authToken = (token, success, error) => {
         if (err) {
             return error('Invalid token');
         }
+        console.log(user);
         const sql = 'SELECT * FROM "user" WHERE email = $1 AND active = $2';
         const params = [
             user.email,
