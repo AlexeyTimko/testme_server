@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
-import {TestRouter, UserRouter} from './routers';
+import {TestRouter, UserRouter, FileUploadRouter} from './routers';
 
 const app = express();
 app.use(bodyParser.json({ type: 'application/json' }));
@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/test', TestRouter);
 app.use('/api/user', UserRouter);
+app.use('/api/file-upload', FileUploadRouter);
 
 server.listen(port, IP, () => {
     console.log('listening on *: ' + port);
