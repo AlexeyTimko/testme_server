@@ -4,8 +4,9 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
     let imageFile = req.files.file;
-    const fn = `/var/www/testme/build/img/${(new Date()).getTime()}${req.body.name}`;
-    imageFile.mv(fn, function(err) {
+    const fn = `${(new Date()).getTime()}${req.body.name}`;
+    const fnp = `/var/www/testme/build/img/${fn}`;
+    imageFile.mv(fnp, function(err) {
         if (err) {
             return res.status(500).send(err);
         }
