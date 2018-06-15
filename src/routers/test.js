@@ -5,10 +5,15 @@ import * as test from "./test/index";
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    let test = new TestModel();
-    test.getList({}, rows => {
+    test.GetList({}, rows => {
         res.statusCode = 200;
         res.json(rows);
+    }, err => {
+        res.statusCode = 200;
+        return res.json({
+            result: 'error',
+            error: err
+        });
     });
 });
 
