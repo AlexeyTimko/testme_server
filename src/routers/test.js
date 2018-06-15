@@ -27,6 +27,7 @@ router.post('/', (req, res) => {
         });
     }
     user.Auth(data, user => {
+        data.user = user.id;
         test.Add(data, id => {
             res.statusCode = 200;
             return res.json({
