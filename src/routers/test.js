@@ -1,5 +1,6 @@
 import express from 'express';
-import TestModel from '../models/test';
+import * as user from "./user/index";
+import * as test from "./test/index";
 
 const router = express.Router();
 
@@ -12,16 +13,34 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    let newTest = new TestModel();
-    newTest.setData(req.body);
-    newTest.save(() => {
-        if(newTest.errors.length > 0){
-            res.statusCode = 500;
-            res.json(newTest.errors);
-        }else{
-            res.statusCode = 201;
-            res.json(newTest.getData());
-        }
+    let data = req.body;
+    if(!data.token){
+        res.statusCode = 200;
+        return res.json({
+            result: 'error',
+            error: 'Invalid token'
+        });
+    }
+    user.Auth(data, user => {
+        test.Add(data, id => {
+            res.statusCode = 200;
+            return res.json({
+                result: 'success',
+                id
+            });
+        }, err => {
+            res.statusCode = 200;
+            return res.json({
+                result: 'error',
+                error: err
+            });
+        });
+    }, err => {
+        res.statusCode = 200;
+        return res.json({
+            result: 'error',
+            error: err
+        });
     });
 });
 
