@@ -36,7 +36,6 @@ export default (data, success, error) => {
             data.image,
             data.user,
         ];
-        console.log(params);
         db.query(sql, params, (err, res) => {
             if (err) {
                 return error('Saving failed');
