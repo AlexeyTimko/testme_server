@@ -26,7 +26,7 @@ export default (data, success, error) => {
     if(!validate(data)){
         error('Invalid data');
     }else{
-        const sql = 'INSERT INTO test (name, description, isprivate, islimited, timelimit, image, user) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING id';
+        const sql = 'INSERT INTO test (name, description, isprivate, islimited, timelimit, image, "user") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING id';
         const params = [
             data.name,
             data.description,
@@ -36,6 +36,7 @@ export default (data, success, error) => {
             data.image,
             data.user,
         ];
+        console.log(params);
         db.query(sql, params, (err, res) => {
             if (err) {
                 return error('Saving failed');
