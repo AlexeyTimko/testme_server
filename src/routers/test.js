@@ -9,10 +9,10 @@ router.get('/', (req, res) => {
         res.statusCode = 200;
         res.json(rows);
     }, err => {
-        res.statusCode = 200;
+        res.statusCode = 500;
         return res.json({
             result: 'error',
-            error: err
+            errors: [{message: err}]
         });
     });
 });
@@ -34,10 +34,10 @@ router.post('/', (req, res) => {
                 id
             });
         }, err => {
-            res.statusCode = 200;
+            res.statusCode = 500;
             return res.json({
                 result: 'error',
-                error: err
+                message: err
             });
         });
     }, err => {
