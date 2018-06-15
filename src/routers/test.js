@@ -19,7 +19,9 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     let data = req.body;
+    let answered = false;
     if(!data.token){
+        answered = true;
         res.statusCode = 200;
         return res.json({
             result: 'error',
@@ -29,12 +31,16 @@ router.post('/', (req, res) => {
     user.Auth(data, user => {
         data.user = user.id;
         test.Add(data, id => {
+            if(answered) return;
+            answered = true;
             res.statusCode = 200;
             return res.json({
                 result: 'success',
                 id
             });
         }, err => {
+            if(answered) return;
+            answered = true;
             res.statusCode = 200;
             return res.json({
                 result: 'error',
@@ -42,6 +48,8 @@ router.post('/', (req, res) => {
             });
         });
     }, err => {
+        if(answered) return;
+        answered = true;
         res.statusCode = 200;
         return res.json({
             result: 'error',

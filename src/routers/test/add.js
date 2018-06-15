@@ -82,7 +82,7 @@ export default (data, success, error) => {
                                 const params = [
                                     qId,
                                     a.text,
-                                    q.correct,
+                                    q.correct || false,
                                 ];
                                 db.query(sql, params, (err, res) => {
                                     if (shouldAbort(err)) {
