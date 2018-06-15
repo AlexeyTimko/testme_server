@@ -9,10 +9,10 @@ router.get('/', (req, res) => {
         res.statusCode = 200;
         res.json(rows);
     }, err => {
-        res.statusCode = 500;
+        res.statusCode = 200;
         return res.json({
             result: 'error',
-            errors: [{message: err}]
+            message: err
         });
     });
 });
@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
         res.statusCode = 200;
         return res.json({
             result: 'error',
-            error: 'Invalid token'
+            message: 'Invalid token'
         });
     }
     user.Auth(data, user => {
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
                 id
             });
         }, err => {
-            res.statusCode = 500;
+            res.statusCode = 200;
             return res.json({
                 result: 'error',
                 message: err
@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
         res.statusCode = 200;
         return res.json({
             result: 'error',
-            error: err
+            message: err
         });
     });
 });

@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
         res.statusCode = 200;
         return res.json({
             result: 'error',
-            error: err
+            message: err
         });
     });
 });
@@ -43,7 +43,7 @@ router.post('/auth/', (req, res) => {
         res.statusCode = 200;
         return res.json({
             result: 'error',
-            error: err
+            message: err
         });
     });
 });
