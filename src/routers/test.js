@@ -58,7 +58,18 @@ router.post('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {});
+router.get('/:id', (req, res) => {
+    test.Load(req.params.id, item => {
+        res.statusCode = 200;
+        res.json(item);
+    }, err => {
+        res.statusCode = 200;
+        return res.json({
+            result: 'error',
+            message: err
+        });
+    });
+});
 
 router.patch('/:id', (req, res) => {});
 
