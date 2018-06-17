@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
     }
     user.Auth(data, user => {
         data.user = user.id;
-        test.Add(data, id => {
+        test.Save(data, id => {
             if(answered) return;
             answered = true;
             res.statusCode = 200;
