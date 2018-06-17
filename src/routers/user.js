@@ -35,6 +35,7 @@ router.post('/auth/', (req, res) => {
         res.json({
             result: 'success',
             user: {
+                id: user.id,
                 email: user.email,
                 token
             }
