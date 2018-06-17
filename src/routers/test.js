@@ -58,6 +58,38 @@ router.post('/', (req, res) => {
     });
 });
 
+const answer = (req, res) => {
+    let data = req.body;
+    let answered = false;
+    test.Answer(data, response => {
+        if(answered) return;
+        answered = true;
+        res.statusCode = 200;
+        return res.json({
+            result: 'success',
+            ...response
+        });
+    }, err => {
+        if(answered) return;
+        answered = true;
+        res.statusCode = 200;
+        return res.json({
+            result: 'error',
+            message: err
+        });
+    });
+};
+
+router.post('/answer', (req, res) => {
+    let data = req.body;
+    user.Auth(data, user => {
+        data.user = user.id;
+        answer(req, res);
+    }, err => {
+        answer(req, res);
+    });
+});
+
 router.get('/:id', (req, res) => {
     test.Load(req.params.id, item => {
         res.statusCode = 200;
