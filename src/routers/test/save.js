@@ -60,7 +60,7 @@ const add = (data, success, error) => {
                 if (shouldAbort(err)) {
                     return error('Saving failed');
                 }
-                addQestions(data, success, error);
+                addQuestions(data, success, error);
             });
         });
     });
@@ -87,24 +87,24 @@ const update = (data, success, error) => {
                 return error('Saving failed');
             }
             const id = data.id;
-            const sql = 'delete from questions WHERE test = $1';
+            const sql = 'delete from question WHERE test = $1';
             db.query(sql, [ id ], (err, res) => {
                 if (shouldAbort(err)) {
                     return error('Saving failed');
                 }
-                const sql = 'delete from answers WHERE test = $1';
+                const sql = 'delete from answer WHERE test = $1';
                 db.query(sql, [ id ], (err, res) => {
                     if (shouldAbort(err)) {
                         return error('Saving failed');
                     }
-                    addQestions(data, success, error);
+                    addQuestions(data, success, error);
                 });
             });
         });
     });
 };
 
-const addQestions = (data, success, error) => {
+const addQuestions = (data, success, error) => {
     const id = data.id;
     for(let i = 0; i < data.questions.length; i++){
         let q = data.questions[i];
