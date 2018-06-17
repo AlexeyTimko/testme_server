@@ -3,9 +3,9 @@ import db from '../../models/db';
 const fields = {
     name: /^.{3,}$/,
     description: /^.*$/,
-    isPrivate: /^.*$/,
-    isLimited: /^.*$/,
-    timeLimit: /^[\d]+$/,
+    isprivate: /^.*$/,
+    islimited: /^.*$/,
+    timelimit: /^[\d]+$/,
     image: /^.*$/,
 };
 const validate = data => {
@@ -46,9 +46,9 @@ export default (data, success, error) => {
             const params = [
                 data.name,
                 data.description,
-                data.isPrivate,
-                data.isLimited,
-                data.timeLimit,
+                data.isprivate,
+                data.islimited,
+                data.timelimit,
                 data.image,
                 data.user,
             ];
