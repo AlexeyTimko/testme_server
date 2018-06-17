@@ -24,14 +24,12 @@ export default (data, success, error) => {
                 let answer = q.answers[j];
                 if(answer.correct) correct++;
                 if(a.indexOf(answer.id) >= 0){
-                    aPoints += q.weight * (answer.correct ? 1 : -1);
-                }else{
-                    aPoints += q.weight * (answer.correct ? -1 : 0);
+                    aPoints += answer.correct ? 1 : -1;
                 }
             }
-            points += aPoints > 0 ? aPoints / correct : 0;
+            points += aPoints > 0 ? aPoints / correct * q.weight : 0;
         }
-        points = Math.round(points);
+        points = Math.round(points * 100) / 100;
         success({
             points,
             totalPoints,
