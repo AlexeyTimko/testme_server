@@ -24,7 +24,9 @@ export default (data, success, error) => {
                 let answer = q.answers[j];
                 if(answer.correct) correct++;
                 if(a.indexOf(answer.id) >= 0){
-                    aPoints += q.weight * (answer.correct ? 1 : -1)
+                    aPoints += q.weight * (answer.correct ? 1 : -1);
+                }else{
+                    aPoints += q.weight * (answer.correct ? -1 : 0);
                 }
             }
             points += aPoints > 0 ? aPoints / correct : 0;
