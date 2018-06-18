@@ -1,12 +1,7 @@
 import {Client} from 'pg';
+import config from '../config';
 
-const client = new Client({
-    user: 'testme',
-    host: 'localhost',
-    database: 'testme',
-    password: 'Jcjpyfybt34',
-    port: 5432,
-});
+const client = new Client(config.db);
 try{
     client.connect();
 }catch (err){

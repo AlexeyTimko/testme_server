@@ -5,7 +5,7 @@ import * as test from "./test/index";
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    test.GetList({}, rows => {
+    test.GetList(req.query, rows => {
         res.statusCode = 200;
         res.json(rows);
     }, err => {
