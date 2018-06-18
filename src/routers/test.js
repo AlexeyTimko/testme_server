@@ -5,7 +5,6 @@ import * as test from "./test/index";
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    console.log(req.query, req.body, req.params);
     test.GetList(req.query, rows => {
         res.statusCode = 200;
         res.json(rows);
