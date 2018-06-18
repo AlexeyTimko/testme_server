@@ -8,7 +8,7 @@ export default (data, success, error) => {
         where.push(`"user" = $${params.length}`);
     }
     if (data.search) {
-        where.push(`("name" like '%${data.search}%' or "description" like '%${data.search}%')`);
+        where.push(`(lower("name") like lower('%${data.search}%') or lower("description") like lower('%${data.search}%'))`);
     }
     const page = data.page || 1;
     const sql = `select * from test ${where.join(' and ')} order by id desc limit 20 offset ${(page - 1) * 20}`;
