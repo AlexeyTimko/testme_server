@@ -2,7 +2,7 @@ import db from '../../models/db';
 
 export default (data, success, error) => {
     let params = [];
-    let where = ['where 1'];
+    let where = ['where true'];
     if (data.user) {
         params.push(data.user);
         where.push(`user = $${params.length}`);
@@ -12,7 +12,7 @@ export default (data, success, error) => {
     }
     const page = data.page || 1;
     const sql = `select * from test ${where.join(' and ')} order by id desc limit 20 offset ${(page - 1) * 20}`;
-    console.log(sql, params);
+    console.log(data, sql, params);
     db.query(sql, params, (err, res) => {
         if (err) {
             return error('Network Error');
