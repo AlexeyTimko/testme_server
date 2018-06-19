@@ -106,9 +106,8 @@ router.get('/:id', (req, res) => {
 router.patch('/:id', (req, res) => {});
 
 router.delete('/:id', (req, res) => {
-    console.log(req.headers);
     let answered = false;
-    const token = req.headers['user-token'];
+    const token = req.params.token;
     if(!token){
         answered = true;
         res.statusCode = 200;
@@ -117,10 +116,8 @@ router.delete('/:id', (req, res) => {
             message: 'Invalid token'
         });
     }
-    user.Auth(data, user => {
-        console.log(user);
+    user.Auth(req.params, user => {
         test.Load(req.params.id, item => {
-            console.log(item);
             if(item.user === user.id){
                 test.Delete(item, () => {
                     answered = true;
