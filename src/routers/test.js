@@ -108,7 +108,7 @@ router.patch('/:id', (req, res) => {});
 router.delete('/:id', (req, res) => {
     console.log(req.headers);
     let answered = false;
-    const token = req.headers['x-access-token'];
+    const token = req.headers['user-token'];
     if(!token){
         answered = true;
         res.statusCode = 200;
