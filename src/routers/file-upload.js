@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
     const ext = nameParts[nameParts.length - 1];
     const name = toHex(`${(new Date()).getTime()}${Math.round(Math.random()*100)}`);
     const fn = `${name}.${ext}`;
-    const fnp = `/var/www/testme/build/img/${fn}`;
+    const fnp = `/var/www/testme/img/${fn}`;
     imageFile.mv(fnp, function(err) {
         if (err) {
             return res.status(500).send(err);
