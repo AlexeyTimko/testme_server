@@ -105,6 +105,62 @@ router.get('/:id', (req, res) => {
 
 router.patch('/:id', (req, res) => {});
 
-router.delete('/:id', (req, res) => {});
+router.delete('/:id', (req, res) => {
+    let data = req.body;
+    let answered = false;
+    if(!data.token){
+        answered = true;
+        res.statusCode = 200;
+        return res.json({
+            result: 'error',
+            message: 'Invalid token'
+        });
+    }
+    user.Auth(data, user => {
+        test.Load(req.params.id, item => {
+            if(item.user === user.id){
+                test.Delete(item, () => {
+                    answered = true;
+                    res.statusCode = 200;
+                    return res.json({
+                        result: 'success'
+                    });
+                }, err => {
+                    if(answered) return;
+                    answered = true;
+                    res.statusCode = 200;
+                    return res.json({
+                        result: 'error',
+                        message: err
+                    });
+                });
+            }else{
+                if(answered) return;
+                answered = true;
+                res.statusCode = 200;
+                return res.json({
+                    result: 'error',
+                    message: 'Invalid user'
+                });
+            }
+        }, err => {
+            if(answered) return;
+            answered = true;
+            res.statusCode = 200;
+            return res.json({
+                result: 'error',
+                message: err
+            });
+        });
+    }, err => {
+        if(answered) return;
+        answered = true;
+        res.statusCode = 200;
+        return res.json({
+            result: 'error',
+            message: err
+        });
+    });
+});
 
 export default router;
