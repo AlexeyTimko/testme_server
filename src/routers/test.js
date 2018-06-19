@@ -117,8 +117,11 @@ router.delete('/:id', (req, res) => {
             message: 'Invalid token'
         });
     }
+    console.log(token);
     user.Auth(data, user => {
+        console.log(user);
         test.Load(req.params.id, item => {
+            console.log(item);
             if(item.user === user.id){
                 test.Delete(item, () => {
                     answered = true;
