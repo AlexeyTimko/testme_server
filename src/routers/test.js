@@ -107,8 +107,7 @@ router.patch('/:id', (req, res) => {});
 
 router.delete('/:id', (req, res) => {
     let answered = false;
-    const token = req.params.token;
-    if(!token){
+    if(!req.query.token){
         answered = true;
         res.statusCode = 200;
         return res.json({
@@ -116,7 +115,7 @@ router.delete('/:id', (req, res) => {
             message: 'Invalid token'
         });
     }
-    user.Auth(req.params, user => {
+    user.Auth(req.query, user => {
         test.Load(req.params.id, item => {
             if(item.user === user.id){
                 test.Delete(item, () => {
