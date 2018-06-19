@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 
 router.post('/auth/', (req, res) => {
     user.Auth(req.body, user => {
-        const token = jwt.sign({ user }, config.secret, {
+        const token = jwt.sign({ id: user.id }, config.secret, {
             expiresIn: 86400 // expires in 24 hours
         });
         res.statusCode = 200;

@@ -6,6 +6,7 @@ export default (test, success, error) => {
         questions.push(test.questions[i].id);
     }
     const sql = 'delete from answer where question in ($1)';
+    console.log(questions.join(','));
     db.query(sql, [questions.join(',')], (err, res) => {
         if (err) {
             return error('Network Error');
