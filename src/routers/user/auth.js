@@ -50,7 +50,7 @@ const authToken = (token, success, error) => {
         }
         const sql = 'SELECT * FROM "user" WHERE id = $1 AND active = $2';
         const params = [
-            decoded.user.id,
+            decoded.id,
             true
         ];
         db.query(sql, params, (err, res) => {
