@@ -106,7 +106,7 @@ router.get('/:id', (req, res) => {
 router.patch('/:id', (req, res) => {});
 
 router.delete('/:id', (req, res) => {
-    let data = req.body;
+    console.log(req.headers);
     let answered = false;
     const token = req.headers['x-access-token'];
     if(!token){
@@ -117,7 +117,6 @@ router.delete('/:id', (req, res) => {
             message: 'Invalid token'
         });
     }
-    console.log(token);
     user.Auth(data, user => {
         console.log(user);
         test.Load(req.params.id, item => {
