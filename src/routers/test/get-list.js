@@ -1,4 +1,5 @@
 import db from '../../models/db';
+import config from '../../config';
 
 export default (data, success, error) => {
     let params = [];
@@ -11,7 +12,7 @@ export default (data, success, error) => {
         where.push(`(lower("name") like lower('%${data.search}%') or lower("description") like lower('%${data.search}%'))`);
     }
     const page = data.page || 1;
-    const sql = `select * from test ${where.join(' and ')} order by id desc limit 20 offset ${(page - 1) * 20}`;
+    const sql = `select * from test ${where.join(' and ')} order by id desc limit ${config.itemsPerPage} offset ${(page - 1) * config.itemsPerPage}`;
     db.query(sql, params, (err, res) => {
         if (err) {
             return error('Network Error');

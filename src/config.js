@@ -6,5 +6,6 @@ export default {
         database: 'testme',
         password: 'Jcjpyfybt34',
         port: 5432,
-    }
+    },
+    itemsPerPage: 1
 };
