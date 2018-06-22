@@ -91,7 +91,6 @@ router.post('/answer', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    console.log(req.params);
     test.Load(req.params.id, item => {
         res.statusCode = 200;
         res.json(item);

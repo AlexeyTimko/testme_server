@@ -17,13 +17,12 @@ export default (id, success, error) => {
         '  ) as questions\n' +
         'from test t\n' +
         '  join question q on q.test = t.id\n';
-    if(id === 0){
+    if(id === '0'){
         sql += 'group by t.id limit 1 order by random() < 0.01 limit 1';
         params = [];
     }else{
         sql += 'where t.id = $1 group by t.id';
     }
-    console.log(sql);
     db.query(sql, params, (err, res) => {
         if (err) {
             return error('Network Error');
