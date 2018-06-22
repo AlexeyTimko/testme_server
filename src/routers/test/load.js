@@ -23,6 +23,7 @@ export default (id, success, error) => {
     }else{
         sql += 'where t.id = $1 group by t.id';
     }
+    console.log(sql);
     db.query(sql, params, (err, res) => {
         if (err) {
             return error('Network Error');
