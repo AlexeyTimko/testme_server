@@ -17,7 +17,7 @@ export default (id, success, error) => {
         '  ) as questions\n' +
         'from test t\n' +
         '  join question q on q.test = t.id\n';
-    if(id === 'rand'){
+    if(id === 0){
         sql += 'group by t.id limit 1 order by random() < 0.01 limit 1';
         params = [];
     }else{
