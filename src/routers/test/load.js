@@ -18,7 +18,7 @@ export default (id, success, error) => {
         'from test t\n' +
         '  join question q on q.test = t.id\n';
     if(id === '0'){
-        sql += 'group by t.id limit 1 order by random() < 0.01 limit 1';
+        sql += 'group by t.id order by random() limit 1';
         params = [];
     }else{
         sql += 'where t.id = $1 group by t.id';
