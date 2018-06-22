@@ -7,5 +7,6 @@ export default {
         password: 'Jcjpyfybt34',
         port: 5432,
     },
-    itemsPerPage: 20
+    itemsPerPage: 20,
+    itemsHomePage: 3,
 };
