@@ -1,7 +1,7 @@
 import db from '../../models/db';
 
 export default (id, success, error) => {
-    const sql = 'select\n' +
+    let sql = 'select\n' +
         '  t.*,\n' +
         '  json_agg(\n' +
         '      json_build_object(\n' +
@@ -15,9 +15,12 @@ export default (id, success, error) => {
         '      )\n' +
         '  ) as questions\n' +
         'from test t\n' +
-        '  join question q on q.test = t.id\n' +
-        'where t.id = $1\n' +
-        'group by t.id';
+        '  join question q on q.test = t.id\n';
+    if(id === 'rand'){
+        sql += 'group by t.id limit 1 order by random < 0.01 limit 1';
+    }else{
+        sql += 'where t.id = $1 group by t.id';
+    }
     db.query(sql, [id], (err, res) => {
         if (err) {
             return error('Network Error');
